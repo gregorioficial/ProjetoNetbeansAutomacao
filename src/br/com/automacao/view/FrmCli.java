@@ -94,8 +94,8 @@ public class FrmCli extends javax.swing.JFrame {
         txtcpf = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtpesquisa = new javax.swing.JTextField();
+        btnpesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabClientes = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
@@ -360,10 +360,20 @@ public class FrmCli extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Nome:");
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtpesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtpesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtpesquisaKeyPressed(evt);
+            }
+        });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Pesquisar");
+        btnpesquisar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnpesquisar.setText("Pesquisar");
+        btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpesquisarActionPerformed(evt);
+            }
+        });
 
         tabClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -373,6 +383,11 @@ public class FrmCli extends javax.swing.JFrame {
                 "Código", "Nome", "RG", "Cpf", "E-mail", "Telefone", "Celular", "Cep", "Endereço", "Nº", "Complemento", "Bairro", "Cidade", "UF"
             }
         ));
+        tabClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -386,9 +401,9 @@ public class FrmCli extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnpesquisar)
                         .addGap(0, 378, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -398,8 +413,8 @@ public class FrmCli extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
+                        .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnpesquisar))
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,9 +436,19 @@ public class FrmCli extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton5.setText("EDITAR");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton6.setText("EXCLUIR");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -494,6 +519,124 @@ public class FrmCli extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowActivated
 
+    private void tabClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabClientesMouseClicked
+            //pega o cliente selecionado na tabela e envia para tela de dados pessoais para alterar ou excluir
+            jTabbedPane1.setSelectedIndex(0);
+            txtcodigo.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),0).toString());
+            txtnome.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),1).toString());
+            txtrg.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),2).toString());
+            txtcpf.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),3).toString());
+            txtemail.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),4).toString());
+            txttelefone.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),5).toString());
+            txtcelular.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),6).toString());
+            txtcep.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),7).toString());
+            txtendereco.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),8).toString());
+            txtnumero.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),9).toString());
+            txtcomplemento.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),10).toString());
+            txtbairro.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),11).toString());
+            txtcidade.setText(tabClientes.getValueAt(tabClientes.getSelectedRow(),12).toString());
+            comboboxbuf.setSelectedItem(tabClientes.getValueAt(tabClientes.getSelectedRow(),13).toString());
+    }//GEN-LAST:event_tabClientesMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+            // botao editar 
+            // botao Salvar Cliente
+            Clientes obj = new Clientes();
+            
+            obj.setNome(txtnome.getText());
+            obj.setRg(txtrg.getText());
+            obj.setCpf(txtcpf.getText());
+            obj.setEmail(txtemail.getText());
+            obj.setTelefone(txttelefone.getText());
+            obj.setCelular(txtcelular.getText());
+            obj.setCep(txtcep.getText());
+            obj.setEndereco(txtendereco.getText());
+            obj.setNumero(Integer.parseInt(txtnumero.getText()));
+            obj.setComplemento(txtcomplemento.getText());
+            obj.setBairro(txtbairro.getText());
+            obj.setCidade(txtcidade.getText());
+            obj.setUf(comboboxbuf.getSelectedItem().toString());
+            
+            obj.setId(Integer.parseInt(txtcodigo.getText()));
+            
+            ClienteDAO dao = new ClienteDAO();
+            dao.alterCli(obj);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+           // botao Excluir Cliente
+            Clientes obj = new Clientes();
+            
+           obj.setId(Integer.parseInt(txtcodigo.getText()));
+            
+            ClienteDAO dao = new ClienteDAO();
+            dao.excluCli(obj);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
+        // botao pesquisar
+        String nome = "%" + txtpesquisa.getText() + "%";
+         ClienteDAO  dao = new ClienteDAO();
+        List<Clientes>lista = dao.buscaCliNome(nome);
+        DefaultTableModel dados = (DefaultTableModel)tabClientes.getModel();
+        dados.setNumRows(0);
+        
+        for(Clientes c: lista){
+            
+        dados.addRow(new Object[]{
+        c.getId(),
+        c.getNome(),
+        c.getRg(),
+        c.getCpf(),
+        c.getEmail(),
+        c.getTelefone(),
+        c.getCelular(),
+        c.getCep(),
+        c.getEndereco(),
+        c.getNumero(),
+        c.getComplemento(),
+        c.getBairro(),
+        c.getCidade(),
+        c.getUf()
+        
+        });
+        }
+        
+    }//GEN-LAST:event_btnpesquisarActionPerformed
+
+    private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
+    
+          // TODO add your handling code here:
+          //  pesquisar ao digitar qualquer coisa
+        String nome = "%" + txtpesquisa.getText() + "%";
+         ClienteDAO  dao = new ClienteDAO();
+        List<Clientes>lista = dao.buscaCliNome(nome);
+        DefaultTableModel dados = (DefaultTableModel)tabClientes.getModel();
+        dados.setNumRows(0);
+        
+        for(Clientes c: lista){
+            
+        dados.addRow(new Object[]{
+        c.getId(),
+        c.getNome(),
+        c.getRg(),
+        c.getCpf(),
+        c.getEmail(),
+        c.getTelefone(),
+        c.getCelular(),
+        c.getCep(),
+        c.getEndereco(),
+        c.getNumero(),
+        c.getComplemento(),
+        c.getBairro(),
+        c.getCidade(),
+        c.getUf()
+        
+        });
+        }
+    }//GEN-LAST:event_txtpesquisaKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -530,9 +673,9 @@ public class FrmCli extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnpesquisar;
     private javax.swing.JButton btnsalvar;
     private javax.swing.JComboBox<String> comboboxbuf;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
@@ -558,7 +701,6 @@ public class FrmCli extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTable tabClientes;
     private javax.swing.JTextField txtbairro;
     private javax.swing.JFormattedTextField txtcelular;
@@ -571,6 +713,7 @@ public class FrmCli extends javax.swing.JFrame {
     private javax.swing.JTextField txtendereco;
     private javax.swing.JTextField txtnome;
     private javax.swing.JTextField txtnumero;
+    private javax.swing.JTextField txtpesquisa;
     private javax.swing.JFormattedTextField txtrg;
     private javax.swing.JFormattedTextField txttelefone;
     // End of variables declaration//GEN-END:variables
