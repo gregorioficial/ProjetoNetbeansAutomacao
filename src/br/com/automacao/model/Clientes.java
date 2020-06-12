@@ -21,7 +21,7 @@ public class Clientes {
     private String cep;
     private String endereco;
     private int numero;
-    private String completmento;
+    private String complemento;
     private String bairro;
     private String cidade;
     private String uf;
@@ -108,12 +108,12 @@ public class Clientes {
         this.numero = numero;
     }
 
-    public String getCompletmento() {
-        return completmento;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setCompletmento(String completmento) {
-        this.completmento = completmento;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getBairro() {

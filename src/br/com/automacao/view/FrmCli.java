@@ -7,6 +7,8 @@ package br.com.automacao.view;
 
 import br.com.automacao.dao.ClienteDAO;
 import br.com.automacao.model.Clientes;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,9 +16,36 @@ import br.com.automacao.model.Clientes;
  */
 public class FrmCli extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmCli
-     */
+    public void carregaTabela(){
+        ClienteDAO  dao = new ClienteDAO();
+        List<Clientes>lista = dao.listarClientes();
+        DefaultTableModel dados = (DefaultTableModel)tabClientes.getModel();
+        dados.setNumRows(0);
+        
+        for(Clientes c: lista){
+            
+        dados.addRow(new Object[]{
+        c.getId(),
+        c.getNome(),
+        c.getRg(),
+        c.getCpf(),
+        c.getEmail(),
+        c.getTelefone(),
+        c.getCelular(),
+        c.getCep(),
+        c.getEndereco(),
+        c.getNumero(),
+        c.getComplemento(),
+        c.getBairro(),
+        c.getCidade(),
+        c.getUf()
+        
+        });
+        }
+        
+        
+    }
+    
     public FrmCli() {
         initComponents();
     }
@@ -68,7 +97,7 @@ public class FrmCli extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabClientes = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         btnsalvar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -77,6 +106,11 @@ public class FrmCli extends javax.swing.JFrame {
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
@@ -309,12 +343,13 @@ public class FrmCli extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(comboboxbuf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(txtrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
-                        .addComponent(txtcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(txtrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
@@ -330,15 +365,15 @@ public class FrmCli extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Pesquisar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "RG", "E-mail", "Telefone", "Celular", "Cep", "Endereço", "Nº", "Complemento", "Bairro", "Cidade", "UF"
+                "Código", "Nome", "RG", "Cpf", "E-mail", "Telefone", "Celular", "Cep", "Endereço", "Nº", "Complemento", "Bairro", "Cidade", "UF"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -443,7 +478,7 @@ public class FrmCli extends javax.swing.JFrame {
             obj.setCep(txtcep.getText());
             obj.setEndereco(txtendereco.getText());
             obj.setNumero(Integer.parseInt(txtnumero.getText()));
-            obj.setCompletmento(txtcomplemento.getText());
+            obj.setComplemento(txtcomplemento.getText());
             obj.setBairro(txtbairro.getText());
             obj.setCidade(txtcidade.getText());
             obj.setUf(comboboxbuf.getSelectedItem().toString());
@@ -452,6 +487,12 @@ public class FrmCli extends javax.swing.JFrame {
             dao.cadasCli(obj);
         
     }//GEN-LAST:event_btnsalvarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // evento tablemodel default carrega a lista
+        carregaTabela();
+        
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -517,8 +558,8 @@ public class FrmCli extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tabClientes;
     private javax.swing.JTextField txtbairro;
     private javax.swing.JFormattedTextField txtcelular;
     private javax.swing.JFormattedTextField txtcep;
