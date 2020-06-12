@@ -160,11 +160,11 @@ public class ClienteDAO {
     }
     
     // Conuslta cliente Por Nome Metodo
-    public Clientes consultaPorNome(String nome){
+    public Clientes consultaPorNome(String cpf){
         try {
-            String sql = "select * from tb_clientes where nome = ?";
+            String sql = "select * from tb_clientes where cpf = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1,nome);
+            stmt.setString(1,cpf);
              ResultSet rs = stmt.executeQuery();
               Clientes obj = new Clientes();
              if (rs.next()) {
